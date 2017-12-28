@@ -241,8 +241,8 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
 
 
      koan(
-          """Declaring a type as invariant also means that you can both mutate and access elements from an
-            | object of generic type""".stripMargin) {
+          """Declaring a type as invariant also means that you can both mutate and access elements
+            |from an object of generic type""".stripMargin) {
 
           // @todo: --- Are you allowed to mutate/access from generic type when using variance, too?
           // @todo: --- Or just for invariance?
