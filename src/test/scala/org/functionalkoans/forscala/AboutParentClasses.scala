@@ -1,0 +1,78 @@
+package org.functionalkoans.forscala
+
+import support.KoanSuite
+
+import scala.collection.mutable.ArrayBuffer
+
+class AboutParentClasses extends KoanSuite {
+     koan("Class hierarchy is linear, a class can only extend from one parent class") {
+          class Worker(val firstName: String, val lastName: String) {}
+          class Employee(override val firstName: String, override val lastName: String,
+                         val employeeID: Long) extends Worker(firstName, lastName)
+          val me = new Employee("Name", "Yourself", 1233)
+          me.firstName should be("Name")
+          me.lastName should be("Yourself")
+     }
+
+     koan("A class that extends from another is polymorphic") {
+          class Worker(val firstName: String, val lastName: String) {}
+          class Employee(override val firstName: String, override val lastName: String,
+                         val employeeID: Long) extends Worker(firstName, lastName)
+
+          val me = new Employee("Name", "Yourself", 1233)
+          val worker: Worker = me
+
+          worker.firstName should be("Name")
+          worker.lastName should be("Yourself")
+     }
+
+     koan("An abstract class, as in Java, cannot be instantiated and only inherited") {
+          abstract class Worker(val firstName: String, val lastName: String) {}
+
+          // if you uncomment this line, if will fail compilation
+          //val worker = new Worker
+     }
+
+
+     koan("A class can be placed inside an abstract class just like in java") {
+          abstract class Worker(val firstName: String, val lastName: String) {
+               class Assignment(val hours: Long) {
+                    // nothing to do here.  Just observe that it compiles
+               }
+          }
+          class Employee(override val firstName: String, override val lastName: String,
+                         val employeeID: Long) extends Worker(firstName, lastName)
+
+
+          // @todo: ---- what is the class type of assignment value - Assignment or Worker?
+
+          val employee = new Employee("Name", "Yourself", 2291)
+          val assignment = new employee.Assignment(22)  //using the employee instance's path, create an assignment for it.
+          assignment.hours should be (22)
+     }
+
+
+
+     koan("Inner classes hide inner concepts"){
+
+          class PandorasBox {
+
+               case class Thing (name: String)
+
+               var things = ArrayBuffer[Thing]()
+               things += Thing("Bad Thing #1")
+               things += Thing("Bad Thing #2")
+
+               def addThing(name: String) { things += new Thing(name)}
+          }
+
+          object ClassInAClassExample extends App {
+               val p = new PandorasBox
+               p.things.foreach(println)
+               p.addThing("Bad Thing #3")
+               p.addThing("Bad Thing #4")
+
+               p.things(3) should be("Bad Thing #4")
+          }
+     }
+}
