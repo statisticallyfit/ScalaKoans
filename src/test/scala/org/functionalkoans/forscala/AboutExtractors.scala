@@ -65,7 +65,8 @@ class AboutExtractors extends KoanSuite {
           class Car(val make: String, val model: String, val year: Short, val topSpeed: Short)
 
           object ChopShop {
-               def unapply(x: Car) = Some(x.make, x.model, x.year, x.topSpeed)
+               def unapply(x: Car): Option[(String, String, Short, Short)] =
+                    Some(x.make, x.model, x.year, x.topSpeed)
           }
 
 
