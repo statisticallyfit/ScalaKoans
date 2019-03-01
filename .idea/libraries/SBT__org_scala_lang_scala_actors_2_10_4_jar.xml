@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.scala-lang:scala-actors:2.10.4:jar">
+    <CLASSES>
+      <root url="jar:///development/projects/statisticallyfit/github/learningprogramming/Scala/ScalaKoans/project/.ivy/cache/org.scala-lang/scala-actors/jars/scala-actors-2.10.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar:///development/projects/statisticallyfit/github/learningprogramming/Scala/ScalaKoans/project/.ivy/cache/org.scala-lang/scala-actors/srcs/scala-actors-2.10.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

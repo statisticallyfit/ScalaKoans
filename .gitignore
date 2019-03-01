@@ -1,4 +1,8 @@
-project/.boot
-project/.ivy
-project/.sbtboot
-target
+target/*
+.idea/*
+ivyrepo/*
+sbtboot/*
+project/target/*
+project/.ivy/*
+project/.boot/*
+project/project/target/*

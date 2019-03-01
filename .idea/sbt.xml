@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaSbtSettings">
+    <option name="linkedExternalProjectsSettings">
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="jdk" value="1.8.0_181" />
+        <option name="modules">
+          <set>
+            <option value="/development/projects/statisticallyfit/github/learningprogramming/Scala/ScalaKoans" />
+            <option value="/development/projects/statisticallyfit/github/learningprogramming/Scala/ScalaKoans/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.13" />
+      </SbtProjectSettings>
+    </option>
+    <option name="vmParameters" value="-XX:MaxPermSize=384M -Dsbt.global.base=project/.sbtboot -Dsbt.boot.directory=project/.boot -Dsbt.ivy.home=project/.ivy" />
+  </component>
+</project>
