@@ -7,7 +7,7 @@ class AboutTuples extends KoanSuite {
 
 
      koan("Tuples can be created easily") {
-          val tuple = ("apple", "dog")
+          val tuple: (String, String) = ("apple", "dog")
           tuple should be(("apple", "dog"))
      }
 

@@ -19,6 +19,7 @@ class AboutRecursion extends KoanSuite {
                     else
                          fact(i - 1, i * accumulator)
                }
+
                fact(i, 1) // accumulator == 1
           }
 
@@ -60,7 +61,25 @@ class AboutRecursion extends KoanSuite {
 
                fib(n, 1, 0)
           }
+
           //Reminder fibonacci sequence: 1, 1, 2, 3, 5, 8, 13, 21
           fibonacci(4) should be(3)
      }
-} //@todo: ---- understand these methods workings through debugger
+
+
+
+     koan("Pattern matching can be used in recursion"){
+          def sum(elems: List[Int]): Int = elems match {
+               case Nil => 0
+               case n :: rest => n + sum(rest)
+          }
+
+          def multiply(elems: List[Int]): Int = elems match {
+               case Nil => 1
+               case n :: rest => n * multiply(rest)
+          }
+
+          sum(List(1,2,3,4,5)) should be(15)
+          multiply(List(1,2,3,4,5)) should be(120)
+     }
+}
