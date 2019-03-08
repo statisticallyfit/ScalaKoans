@@ -84,15 +84,15 @@ class AboutCaseClasses extends KoanSuite {
      koan("Safer alternatives exist for altering case classes") {
           case class Dog(name: String, breed: String) // Doberman
 
-          val d1 = Dog("Scooby", "Doberman")
+          val scooby = Dog("Scooby", "Doberman")
 
-          val d2 = d1.copy(name = "Scooby Doo") // copy the case class but change the name in the copy
+          val doo = scooby.copy(name = "Scooby Doo") // copy the case class but change the name in the copy
 
-          d1.name should be("Scooby") // original left alone
-          d1.breed should be("Doberman")
+          scooby.name should be("Scooby") // original left alone
+          scooby.breed should be("Doberman")
 
-          d2.name should be("Scooby Doo")
-          d2.breed should be("Doberman") // copied from the original
+          doo.name should be("Scooby Doo")
+          doo.breed should be("Doberman") // copied from the original
      }
 
      // case class has to be defined outside of the test for this one
@@ -100,27 +100,27 @@ class AboutCaseClasses extends KoanSuite {
 
      koan("Case classes have default and named parameters") {
 
-          val p1 = Person("Fred", "Jones", 23, "111-22-3333")
-          val p2 = Person("Samantha", "Jones") // note missing age and ssn
-          val p3 = Person(last = "Jones", first = "Fred", ssn = "111-22-3333") // note the order can change, and missing age
-          val p4 = p3.copy(age = 23)
+          val fred = Person("Fred", "Jones", 23, "111-22-3333")
+          val samantha = Person("Samantha", "Jones") // note missing age and ssn
+          val anotherFred = Person(last = "Jones", first = "Fred", ssn = "111-22-3333") // note the order can change, and missing age
+          val fredCopy = anotherFred.copy(age = 23)
 
-          p1.first should be("Fred")
-          p1.last should be("Jones")
-          p1.age should be(23)
-          p1.ssn should be("111-22-3333")
+          fred.first should be("Fred")
+          fred.last should be("Jones")
+          fred.age should be(23)
+          fred.ssn should be("111-22-3333")
 
-          p2.first should be("Samantha")
-          p2.last should be("Jones")
-          p2.age should be(0)
-          p2.ssn should be("")
+          samantha.first should be("Samantha")
+          samantha.last should be("Jones")
+          samantha.age should be(0)
+          samantha.ssn should be("")
 
-          p3.first should be("Fred")
-          p3.last should be("Jones")
-          p3.age should be(0)
-          p3.ssn should be("111-22-3333")
+          anotherFred.first should be("Fred")
+          anotherFred.last should be("Jones")
+          anotherFred.age should be(0)
+          anotherFred.ssn should be("111-22-3333")
 
-          (p1 == p4) should be(true)
+          (fred == fredCopy) should be(true)
      }
 
      koan("Case classes can be disassembled to their constituent parts as a tuple") {
@@ -161,6 +161,20 @@ class AboutCaseClasses extends KoanSuite {
           c.age = 92
           c.name should be("Leonard Nimoy")
           c.age should be(92)
+     }
+
+
+     koan("Case classes can be used in pattern matching"){
+
+          case class Person(name: String, relation: String)
+
+          val hannah = Person("Hannah", "niece")
+
+          val sentence = hannah match {
+               case Person(n, r) => s"$n is my $r"
+          }
+
+          sentence should be("Hannah is my niece")
      }
 }
 

@@ -79,13 +79,35 @@ class AboutParentClasses extends KoanSuite {
                def addThing(name: String) { things += new Thing(name)}
           }
 
-          object ClassInAClassExample extends App {
-               val p = new PandorasBox
-               p.things.foreach(println)
-               p.addThing("Bad Thing #3")
-               p.addThing("Bad Thing #4")
+          val pandoraBox = new PandorasBox
+          pandoraBox.things.foreach(println)
+          pandoraBox.addThing("Bad Thing #3")
+          pandoraBox.addThing("Bad Thing #4")
 
-               p.things(3) should be("Bad Thing #4")
+          pandoraBox.things(3) should be(pandoraBox.Thing("Bad Thing #4"))
+
+
+          //inner classes are bound to the object
+          val hopeOutOfPandora: pandoraBox.Thing = pandoraBox.Thing("Hope is left")
+          hopeOutOfPandora.name should be("Hope is left")
+     }
+
+     koan("Case study of Inner and outer classes"){
+          class OuterBubble {
+
+               case class InnerRainbow(intensity: Int)
+
+               case class InnerBubble{
+                    var size: Int = 1
+               }
           }
+
+          val ob1 = new OuterBubble
+          val ir1 = new ob1.InnerRainbow(4)
+          val ib1 = new ob1.InnerBubble
+
+          ib1.size should be(1)
+          ir1.intensity should be(4)
+
      }
 }
