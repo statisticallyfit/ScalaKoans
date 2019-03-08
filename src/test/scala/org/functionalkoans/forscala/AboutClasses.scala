@@ -10,7 +10,11 @@ class AboutClasses extends KoanSuite {
 
      class ClassWithValParameter(val name: String)
 
-     koan("val parameters in class definition define getter") {
+     // you can define class with private fields
+     class ClassWithPrivateFields(name: String, private val num1: Int, private var num2: Int)
+
+
+     koan("val parameters in class definition define getter only, no setter") {
           val aClass = new ClassWithValParameter("name goes here")
           aClass.name should be("name goes here")
      }
@@ -23,43 +27,22 @@ class AboutClasses extends KoanSuite {
           aClass.description should be("new description")
      }
 
-     // you can define class with private fields
-     class ClassWithPrivateFields(name: String) //{ def getName() = {name}}
 
      // name becomes private just by not using either val or var. Or you can use the private keyword
-     koan("fields defined internally are private to class") {
-          val aClass = new ClassWithPrivateFields("name")
+     koan("parameters declared without val or var are private. Same effect as adding private keyword" +
+          "to a val or var parameter") {
+          val aClass = new ClassWithPrivateFields("name", 23, 25)
 
           // NOTE: aClass.name is not accessible
+          //NOTE: aClass.num1 is not accessible
+          //NOTE: aClass.num2 is not accessible
      }
 
 
-     // doneby me
-     class Brain private{
-          override def toString = "This is the brain"
-     }
-
-     object Brain {
-          val brain = new Brain
-          def getInstance = brain
-     }
-
-     koan("A private primary constructor does not allow you to make an instance of that class"){
-
-          object BrainTest {
-               // this won't compile
-               //val brain = new Brain
-
-               // this works
-               val brain = Brain.getInstance
-               brain.toString should be("This is the brain")
-          }
-     }
-
-
-     koan("Using the primary constructor means putting the variables in the () " +
-          "next to the class keyword. This generates mutator and accessor methods for" +
-          "those parameters. " +
+     koan("Primary constructor of a class is made of " +
+          "(1) constructor parameters, " +
+          "(2) methods called in the class, and " +
+          "(3) statements executed in the body of the class. " +
           "Auxiliary constructors allow different ways to make objects"){
 
 
@@ -70,6 +53,10 @@ class AboutClasses extends KoanSuite {
 
           // primary constructor
           class Pizza(var crustSize: Int, var crustType: String) {
+
+               println("the pizza primary constructor begins")
+
+
 
                // one-arg auxiliary constructor
                def this(crustSize: Int){
@@ -85,6 +72,9 @@ class AboutClasses extends KoanSuite {
                     this(Pizza.DEFAULT_CRUST_SIZE, Pizza.DEFAULT_CRUST_TYPE)
                }
                override def toString = s"A $crustSize inch pizza with a $crustType crust"
+
+
+               println("the pizza primary constructor ends")
           }
 
 
@@ -155,6 +145,29 @@ class AboutClasses extends KoanSuite {
           }
      }
 
+
+     // doneby me: todo - why must this stay outside the koan?
+     class Brain private{
+          override def toString = "This is the brain"
+     }
+
+     object Brain {
+          val brain = new Brain
+          def getInstance = brain
+     }
+
+     koan("A private primary constructor does not allow you to make an instance of that class"){
+
+
+          object BrainTest {
+               // this won't compile
+               //val brain = new Brain
+
+               // this works
+               val brain = Brain.getInstance
+               brain.toString should be("This is the brain")
+          }
+     }
 
 
      koan("You can declare instance variables with or without the primary constructor at the same time"){

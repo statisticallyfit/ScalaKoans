@@ -33,9 +33,13 @@ class AboutConstructors extends KoanSuite {
 
 
 
-     koan("The primary constructor is not explicit; it is a combination of the constructor " +
-          "parameters, methods called in the class, and statements/expression executed in the class"){
+     koan("Constructor can take default values"){
 
+          /**
+            * The primary constructor is not explicit; it is a combination of the constructor " +
+          "parameters, methods called in the class, and statements/expression executed in the class
+
+            */
           class Coffee(val shots: Int = 2,
                        val decaf: Boolean = false,
                        val milk: Boolean = false,
@@ -81,18 +85,18 @@ class AboutConstructors extends KoanSuite {
 
           class GardenGnome(val height: Double, val weight: Double, val happy: Boolean) {
 
-               println("Inside primary constructor: GardenGnome")
+               //println("Inside primary constructor: GardenGnome")
 
                var painted = true
                def magic(level: Int): String = "Poof! " + level
 
-               // note this auxiliary constructor connects back to class args
+               // note: this gets executed if only the height argument is passed
                def this(height: Double) {
                     this(height, 100.0, true)
                }
                // note this auxiliary constructor has different type than
                // all other class arguments but works because it calls first
-               // auxiliary constructor, which connects back to original class args.
+               // auxiliary constructor, which calls the original class args
                def this(name: String) = {
                     this(15.0)
                     assert(painted)
@@ -106,5 +110,47 @@ class AboutConstructors extends KoanSuite {
 
           val g2 = new GardenGnome("Bob")
           g2.show() should be("15.0 100.0 true true")
+     }
+
+
+     koan("Can modify constructor parameters"){
+
+          //intentionally left off the 'private' modifier off _symbol
+          class Stock (var _symbol: String){
+
+               //getter
+               def symbol = _symbol
+               //setter
+               def symbol_=(s: String): Unit = {
+                    this.symbol = s
+                    println(s"symbol was updated, new value is $symbol")
+               }
+          }
+
+          val stock = new Stock("$")
+          stock._symbol = "$$$"
+          stock.symbol should be("$$$")
+     }
+
+     koan("Classes can be declared in such a way to avoid automatic generation of getters and setters"){
+
+          class Stock(var delayedPrice: Double) {
+               // getter and setter are also generated
+               var symbol: String = _
+
+               //no getters or setters are generated
+               private var currentPrice: Double = _
+          }
+
+          val stock = new Stock(100.28)
+          stock.delayedPrice should be(100.28)
+          stock.delayedPrice += 0.11
+          stock.delayedPrice should be(100.39)
+          stock.symbol should be(null)
+          stock.symbol = "$$$"
+          stock.symbol should be ("$$$")
+
+          //not available
+          //stock.currentPrice
      }
 }
