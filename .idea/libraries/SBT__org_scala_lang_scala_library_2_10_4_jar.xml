@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="SBT: org.scala-lang:scala-library:2.10.4:jar" type="Scala">
     <properties>
-      <option name="languageLevel" value="Scala_2_10" />
       <compiler-classpath>
         <root url="file:///development/projects/statisticallyfit/github/learningprogramming/Scala/ScalaKoans/project/.ivy/cache/org.fusesource.jansi/jansi/jars/jansi-1.4.jar" />
         <root url="file:///development/projects/statisticallyfit/github/learningprogramming/Scala/ScalaKoans/project/.ivy/cache/org.scala-lang/jline/jars/jline-2.10.4.jar" />

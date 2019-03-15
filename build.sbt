@@ -4,7 +4,7 @@ name := "Scala Koans"
 
 version := "1.0"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.8" //"2.10.4" // newer 2.12.8
 
 traceLevel := -1
 
@@ -23,5 +23,5 @@ scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature")
 offline := true
 
 libraryDependencies ++= Seq(
-	"org.scalatest" %% "scalatest" % "1.9.1" % "test" withSources() withJavadoc()
+	"org.scalatest" %% "scalatest" % "2.2.6" % "test" withSources() withJavadoc()
 )
